@@ -1,9 +1,9 @@
 package lotto.domain.lottonumber;
 
-import lotto.util.StringUtils;
-
 import java.util.*;
 import java.util.stream.IntStream;
+
+import lotto.util.StringUtils;
 
 /**
  * 지정된 범위의 로또 번호를 캐시로 가지고 있는 클래스

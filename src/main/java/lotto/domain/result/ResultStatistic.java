@@ -7,6 +7,8 @@ import java.util.stream.Collectors;
 import lotto.domain.money.MoneyForLotto;
 import lotto.domain.lottos.Lottos;
 
+import static java.util.Arrays.stream;
+
 /**
  * 로또 결과를 Map 형태로 포함하는 객체
  *
@@ -38,13 +40,21 @@ public class ResultStatistic {
 	}
 
 	private long getTotalRevenue() {
-		long totalRevenue = 0;
+//		long totalRevenue = 0;
+//
+//		for (Rank rank : Rank.values()) {
+//			totalRevenue += results.getOrDefault(rank, DEFAULT_COUNT) * rank.getReward();
+//		}
+//
+//		return totalRevenue;
 
-		for (Rank rank : Rank.values()) {
-			totalRevenue += results.getOrDefault(rank, DEFAULT_COUNT) * rank.getReward();
-		}
+		return stream(Rank.values())
+				.mapToLong(this::createRankRevenue)
+				.sum();
+	}
 
-		return totalRevenue;
+	private long createRankRevenue(Rank rank) {
+		return results.getOrDefault(rank, DEFAULT_COUNT) * rank.getReward();
 	}
 
 	public Map<Rank, Long> getResult() {
